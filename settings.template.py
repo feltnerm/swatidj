@@ -10,10 +10,16 @@ import binascii
 # Server Settings
 # ================
 
-SITE_NAME = 'DJembe' #ENTER SITE NAME!
+SITE_NAME = 'DJ Embe' #ENTER SITE NAME!
 
 SUPER_USER = '{{ SUPER_USER }}'
 SUPER_USER_PASS = '{{ SUPER_USER_PASS }}'
+
+# ===
+# MPD
+# ===
+MPD_HOST = '{{ MPD_HOST }}'
+MPD_PORT = {{ MPD_PORT }}
 
 # ======================
 # Directory Declarations
@@ -27,6 +33,8 @@ TEMPLATE_DIRS = (os.path.join(APPS_ROOT, 'templates'), )
 STATIC_ROOT = os.path.join(APPS_ROOT, 'static')
 HELPERS_ROOT = os.path.join(CURRENT_DIR, 'helpers')
 VENDOR_ROOT = os.path.join(CURRENT_DIR, 'vendor')
+
+UPLOAD_DIRECTORY = os.path.expanduser('~/music/uploads')
 
 # ===========
 # Python Path
@@ -77,8 +85,3 @@ CACHE_DEFAULT_TIMEOUT = 300
 #CACHE_TYPE = 'memcached'
 #CACHE_MEMCACHED_SERVERS = [os.environ.get('MEMCACHE_USERNAME')+':'+os.environ.get('MEMCACHE_PASSWORD')+'@'+os.environ.get('MEMCACHE_SERVERS'),]
 
-# ===
-# MPD
-# ===
-MPD_HOST = '{{ MPD_HOST }}'
-MPD_PORT = {{ MPD_PORT }}

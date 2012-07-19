@@ -189,27 +189,27 @@ def console():
 
 @task
 def less():
-    with lcd('apps/static/less'):
+    with lcd('app/static/less'):
         local('lessc style.less ../css/style.css')
 
 @task
 def coffee():
-    with lcd('apps/static/coffee'):
+    with lcd('app/static/coffee'):
         local('coffee -b --compile --output ../js/ *.coffee')
 
 @task
 def uglify():
-    with lcd('apps/static/js'):
+    with lcd('app/static/js'):
         local('uglifyjs script.js >> script.min.js')
         local('uglifyjs plugins.js >> plugins.min.js')
 
 @task
 def cssmin():
-    with lcd('apps/static/css'):
+    with lcd('app/static/css'):
         local('cat *.css | cssmin > style.min.css')
 @task
 def watch_coffee():
-    with lcd('apps/static/coffee'):
+    with lcd('app/static/coffee'):
         local('coffee -o ../js/ --watch --compile ./*coffee')
 
 @task
@@ -352,7 +352,7 @@ def deploy():
 @task
 def clean():
     rmpyc()
-    with lcd('apps/static/'):
+    with lcd('app/static/'):
         local('rm -rf js/*.js')
         local('rm -rf css/*.css')
         local('rm -rf gen/*')
