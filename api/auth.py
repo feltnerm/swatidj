@@ -7,7 +7,8 @@ from flask.ext.login import LoginManager, UserMixin, AnonymousUser
 from flask.ext.mongokit import Document
 from flask.ext.principal import Principal, RoleNeed, UserNeed, Permission, \
         identity_loaded
-from app.extensions import bcrypt, db
+
+from extensions import bcrypt, db
 
 
 ROLES = {

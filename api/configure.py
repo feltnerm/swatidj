@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
 from flask import Flask, jsonify, g
-from app import extensions, auth, api
 
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
+
+import auth
+import extensions
+import views
+
 
 def configure_beforehandlers(app):
 
@@ -15,8 +19,8 @@ def configure_beforehandlers(app):
 
 def configure_blueprints(app):
     """ Enable specific blueprints. """
-    pass
-
+    
+    app.register_blueprint(views.mpd_api)
 
 def configure_errorhandlers(app):
     """ Set default error pages (404, 505, etc.). """
@@ -37,19 +41,14 @@ def configure_extensions(app):
     extensions.bcrypt.init_app(app) 
     extensions.cache.init_app(app)
     extensions.db.init_app(app)
+    extensions.mpd.init_app(app)
     auth.init_app(app)
-    extensions.mpd_client.connect(app.config['MPD_HOST'],
-            app.config['MPD_PORT'])
 
 
 def configure_logging(app):
     """ Set up the application's logger. """
     pass
 
-
-def register_apis(app):
-
-    app.add_url_rule('/', view_func=api.MPDControl.as_view('MPDControl'))    
 
 def configure_app(app, config_filename):
     """ Configures the application. """
@@ -67,4 +66,3 @@ def configure_app(app, config_filename):
     configure_beforehandlers(app)
     configure_errorhandlers(app)
     configure_blueprints(app)
-    register_apis(app)

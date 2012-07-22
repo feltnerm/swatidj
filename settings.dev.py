@@ -10,10 +10,16 @@ import binascii
 # Server Settings
 # ================
 
-SITE_NAME = 'DJembe' #ENTER SITE NAME!
+SITE_NAME = 'DJ Embe' #ENTER SITE NAME!
 
 SUPER_USER = 'mark'
 SUPER_USER_PASS = 'spanky'
+
+# ===
+# MPD
+# ===
+MPD_HOST = 'localhost'
+MPD_PORT = 6600
 
 # ======================
 # Directory Declarations
@@ -27,6 +33,8 @@ TEMPLATE_DIRS = (os.path.join(APPS_ROOT, 'templates'), )
 STATIC_ROOT = os.path.join(APPS_ROOT, 'static')
 HELPERS_ROOT = os.path.join(CURRENT_DIR, 'helpers')
 VENDOR_ROOT = os.path.join(CURRENT_DIR, 'vendor')
+
+UPLOAD_DIRECTORY = os.path.expanduser('~/music/uploads')
 
 # ===========
 # Python Path
@@ -48,7 +56,7 @@ BABEL_DEFAULT_LOCALE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'utc'
 ASSETS_DEBUG = DEBUG
 INDEX_TEMPLATE = 'index.html'
-SECRET_KEY = """'Z94dj`KZ*DecqaQ-L19kSNY)%&JL"E'JbN*pX8DY0*[q-Glr`92d3V9"""
+SECRET_KEY = """UHdCd[Mkaj@FH-GS#B@&SB4,9XkG%ff9m@@"pRG0N[d@d`$f-K5j2%p3"""
 
 # =======
 # Logging
@@ -76,9 +84,3 @@ CACHE_TYPE = 'null'
 CACHE_DEFAULT_TIMEOUT = 300
 #CACHE_TYPE = 'memcached'
 #CACHE_MEMCACHED_SERVERS = [os.environ.get('MEMCACHE_USERNAME')+':'+os.environ.get('MEMCACHE_PASSWORD')+'@'+os.environ.get('MEMCACHE_SERVERS'),]
-
-# ===
-# MPD
-# ===
-MPD_HOST = 'localhost'
-MPD_PORT = 6600

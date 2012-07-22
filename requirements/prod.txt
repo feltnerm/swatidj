@@ -32,9 +32,9 @@ Flask-Themes
 Flask-Uploads
 Flask-WTF
 
-juggernaut
-
 # Utility
 jsmin
 cssmin
 
+# MPD
+git+git://github.com/Mic92/python-mpd2.git

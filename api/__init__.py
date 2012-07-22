@@ -3,7 +3,7 @@
 import sys
 from flask import Flask
 from logbook.compat import redirect_logging
-from api import configure
+import configure
 
 def make_app(config=None):
     redirect_logging()

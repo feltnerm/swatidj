@@ -1,9 +1,9 @@
 from flaskext.bcrypt import Bcrypt
 from flaskext.cache import Cache
 from flask.ext.mongokit import MongoKit
-import mpd
+import mpd_kit
 
-mpd_client = mpd.MPDClient()
 bcrypt = Bcrypt()
 cache = Cache()
 db = MongoKit()
+mpd = mpd_kit.MPD()
