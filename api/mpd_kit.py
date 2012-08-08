@@ -52,7 +52,6 @@ class MPD(MPDClient):
                     host=ctx.app.config.get('MPD_HOST'),
                     port=ctx.app.config.get('MPD_PORT'),
                     )
-        print 'Connected to MPD!'
 
     @property
     def connected(self):
@@ -66,10 +65,6 @@ class MPD(MPDClient):
             del ctx.mpd_connection
 
     
-    def execute(self, command):
-        pass
-
-
     def _teardown_request(self, response):
         self.disconnect()
         return response
@@ -80,7 +75,3 @@ class MPD(MPDClient):
 
         mpd_connection = getattr(ctx_stack.top, 'mpd_connection')
         return getattr(mpd_connection, name)
-
-    def __getitem__(self, name):
-        if not self.connected:
-            self.connect()

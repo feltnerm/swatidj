@@ -21,6 +21,8 @@ Flask-Cache
 # Database
 Flask-MongoKit
 
+simpleapi
+
 # User Auth
 Flask-Principal
 Flask-Login

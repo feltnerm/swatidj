@@ -7,8 +7,7 @@ from werkzeug.exceptions import HTTPException
 
 import auth
 import extensions
-import views
-
+import api
 
 def configure_beforehandlers(app):
 
@@ -16,11 +15,6 @@ def configure_beforehandlers(app):
     def authenticate():
         g.user = getattr(g.identity, 'user', None)
 
-
-def configure_blueprints(app):
-    """ Enable specific blueprints. """
-    
-    app.register_blueprint(views.mpd_api)
 
 def configure_errorhandlers(app):
     """ Set default error pages (404, 505, etc.). """
@@ -50,6 +44,11 @@ def configure_logging(app):
     pass
 
 
+def configure_api(app):
+
+    mpdapi_view = api.MPDMethodView.as_view('mpd_api')
+    app.add_url_rule('/api', view_func=mpdapi_view, methods=['GET','POST'])
+
 def configure_app(app, config_filename):
     """ Configures the application. """
     app.config.from_pyfile(config_filename)
@@ -65,4 +64,4 @@ def configure_app(app, config_filename):
     configure_extensions(app)
     configure_beforehandlers(app)
     configure_errorhandlers(app)
-    configure_blueprints(app)
+    configure_api(app)
