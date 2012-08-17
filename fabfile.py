@@ -63,19 +63,16 @@ def penv():
 
 # Default
 env.PROJECT_ROOT = os.path.dirname(__file__)
-env.PROJECT_VENV = 'blog'
+env.PROJECT_VENV = 'r2dj'
 env.user = "mark"
 env.roledefs = {
     'local': ['localhost'],
-    'web': ['carlsagan']
-    #'app': ['app.uwplatt.edu',
-    #'dev': ['dev.uwplatt.edu'],
-    #'ldap': ['ldap.uwplatt.ed'],
+    'web': ['saraswati']
 }
 
 def server():
-    env.PROJECT_ROOT = '~/bin/Saraswati'
-    env.user = 'brain'
+    env.PROJECT_ROOT = '/var/www/saraswati'
+    env.user = 'mark'
 
 @task
 def web():
@@ -111,10 +108,6 @@ def create_settings():
     settings['MONGODB_DATABASE'] = prompt(magenta('MONGODB_DATABASE:'))
     settings['MONGODB_USERNAME'] = prompt(magenta('MONGODB_USERNAME:'))
     settings['MONGODB_PASSWORD'] = prompt(magenta('MONGODB_PASSWORD:'))
-
-    puts('')
-    settings['SUPER_USER'] = prompt(magenta('SUPER_USER:'))
-    settings['SUPER_USER_PASS'] = prompt(magenta('SUPER_USER_PASS:'))
 
     puts('')
     settings['MPD_HOST'] = prompt(magenta('MPD_HOST:'))

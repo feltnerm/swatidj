@@ -3,19 +3,13 @@
 import os
 import random
 import readline
-
 from pprint import pprint
-
 from flask import *
+from app import make_app
+from app import helpers
+from app.extensions import *
 
-import experientiarum
-from experientiarum.config import DevConfig
-
-from experientiarum import helpers
-from experientiarum.extensions import *
-
-app = experientiarum.generate_app(DevConfig)
-
+app = make_app('settings.dev.py')
 os.environ['PYTHONINSPECT'] = 'True'
 
 def show(obj):

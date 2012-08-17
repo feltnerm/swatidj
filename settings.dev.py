@@ -10,15 +10,12 @@ import binascii
 # Server Settings
 # ================
 
-SITE_NAME = 'DJ Embe' #ENTER SITE NAME!
-
-SUPER_USER = 'mark'
-SUPER_USER_PASS = 'spanky'
+SITE_NAME = 'r2dj' #ENTER SITE NAME!
 
 # ===
 # MPD
 # ===
-MPD_HOST = 'localhost'
+MPD_HOST = '192.168.1.100'
 MPD_PORT = 6600
 
 # ======================
@@ -33,8 +30,10 @@ TEMPLATE_DIRS = (os.path.join(APPS_ROOT, 'templates'), )
 STATIC_ROOT = os.path.join(APPS_ROOT, 'static')
 HELPERS_ROOT = os.path.join(CURRENT_DIR, 'helpers')
 VENDOR_ROOT = os.path.join(CURRENT_DIR, 'vendor')
+LIB_ROOT = os.path.join(CURRENT_DIR, 'lib')
 
-UPLOAD_DIRECTORY = os.path.expanduser('~/music/uploads')
+MUSIC_DIRECTORY = os.path.expanduser('~/Music')
+
 
 # ===========
 # Python Path
@@ -43,6 +42,8 @@ if '/helpers' not in ''.join(sys.path):
     sys.path.append(HELPERS_ROOT)
 if '/vendor' not in ''.join(sys.path):
     sys.path.append(VENDOR_ROOT)
+if '/lib' not in ''.join(sys.path):
+    sys.path.append(LIB_ROOT)
 
 # ===============
 # Global Settings
@@ -56,7 +57,7 @@ BABEL_DEFAULT_LOCALE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'utc'
 ASSETS_DEBUG = DEBUG
 INDEX_TEMPLATE = 'index.html'
-SECRET_KEY = """UHdCd[Mkaj@FH-GS#B@&SB4,9XkG%ff9m@@"pRG0N[d@d`$f-K5j2%p3"""
+SECRET_KEY = """)35b+%N(T+Jm(Cd@C8SPfq+eXhEq&BX**%NUb(34)kN,1d$BV!ZPA#)j"""
 
 # =======
 # Logging
@@ -71,7 +72,7 @@ ERROR_LOG = os.path.join(LOG_DIR, 'error.log')
 # =======
 # MongoDB
 # =======
-MONGODB_DATABASE = 'djembe_db'
+MONGODB_DATABASE = 'r2dj'
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 MONGODB_USERNAME = ''

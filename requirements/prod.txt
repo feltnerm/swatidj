@@ -1,42 +1,38 @@
-# Install compiled stuff first
+## Install compiled stuff first
 -r compiled.txt
 
 ipython
 gunicorn
 
-# Flask Stuff
+## Flask Stuff
 Flask
 Werkzeug
 
-# Templates
+## Templates
 Jinja2
 
-# Logging
+## Logging
 Logbook
 
-# Caching
+## Caching
 python-memcached
 Flask-Cache
 
-# Database
+## Database
 Flask-MongoKit
 
-simpleapi
-
-# User Auth
+## User Auth
 Flask-Principal
 Flask-Login
 
-# Extensions
+## Extensions
 Flask-Admin
 Flask-Bcrypt
-Flask-Themes
-Flask-Uploads
 Flask-WTF
 
-# Utility
-jsmin
-cssmin
+## MPD
+#git+git://github.com/Mic92/python-mpd2.git
+git+git://github.com/feltnerm/python-mpd2.git
 
-# MPD
-git+git://github.com/Mic92/python-mpd2.git
+## Plugins
+python-musicbrainz2

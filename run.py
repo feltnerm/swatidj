@@ -4,7 +4,7 @@ import os
 import sys
 import argparse
 
-from api import make_app
+from app import make_app
 
 def main(argv=None):
     ''' Main function to run the server '''
