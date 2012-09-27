@@ -7,8 +7,6 @@ gunicorn
 ## Flask Stuff
 Flask
 Werkzeug
-
-## Templates
 Jinja2
 
 ## Logging
@@ -21,12 +19,15 @@ Flask-Cache
 ## Database
 Flask-MongoKit
 
+## Redis
+redis
+juggernaut
+
 ## User Auth
 Flask-Principal
 Flask-Login
 
 ## Extensions
-Flask-Admin
 Flask-Bcrypt
 Flask-WTF
 
@@ -35,4 +36,4 @@ Flask-WTF
 git+git://github.com/feltnerm/python-mpd2.git
 
 ## Plugins
-python-musicbrainz2
+#python-musicbrainz2
