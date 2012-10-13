@@ -19,15 +19,15 @@ class MPD(MPDClient):
         super(MPD, self).__init__(use_unicode=use_unicode,
                 *args, **kwargs)
         self.connect()
-       
+
     def connect(self):
         try:
             super(MPD, self).connect(self._host, self._port)
             self._connected = True
         except IOError as (errno, strerror):
-            raise Exception("Could not connect to '%s': %s" % (self._host
-                , strerror)) 
-    
+            raise Exception("Could not connect to '%s': %s" % (self._host,
+             strerror))
+
     def disconnect(self):
         try:
             super(MPD, self).close()
@@ -51,7 +51,7 @@ class MPDKit(object):
             self.init_app(self.app)
         else:
             self.app = None
-        
+
     def init_app(self, app, *args, **kwargs):
         app.config.setdefault('MPD_HOST', 'localhost')
         app.config.setdefault('MPD_PORT', 6600)
@@ -106,4 +106,3 @@ class MPDKit(object):
             return getattr(mpd_client, name)
         else:
             return {}
-

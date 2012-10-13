@@ -16,7 +16,7 @@
     {% block stylesheets %}
     <link rel='stylesheet' href='/static/stylesheets/style.css'>
     {% endblock stylesheets %}
-	<script src="/static/javascripts/contrib/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+	<script src="/static/javascripts/contrib/modernizr-min.js"></script>
     
 </head>
 <body style="padding-top: 60px;">
@@ -49,16 +49,15 @@
     </footer>
 
 {% block javascripts %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/static/javascripts/contrib/jquery-1.7.2.min.js"><\/script>')</script>
-<script src="/static/javascripts/contrib/json2.js"></script>s
+<script data-main="/static/javascripts/main" src="/static/javascripts/contrib/require.js"></script>
+
+<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"><\/script>') || document.write('<script src="/static/javascripts/contrib/jquery/jquery-min.js"><\/script>')</script>
 
     <script src="/static/contrib/bootstrap/javascripts/bootstrap.min.js"></script>
 
+    
+
 {% endblock javascripts %}
-<script src="/static/javascripts/contrib/underscore-min.js"></script>
-<script src="/static/javascripts/contrib/backbone-min.js"></script>
-<script src="/static/javascripts/script.js"></script>
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

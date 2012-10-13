@@ -1,0 +1,51 @@
+
+# API URI Structure
+
+_ex: http://saraswat/r2dj/api/0.1/..._
+
+## Commands API
+Commands are the ways to control mpd, such as playing or pausing a track.
+More specifically, commands will *change the state* of the current mpd
+daemon.
+
+| URL                   | Methods       | MPD Method      |
+--------------------------------------------------------
+/command/play
+/command/pause
+/command/next
+/command/prev
+/command/seek
+
+
+## Playlist API
+The playlist API allows the client to CRUD on the mpd server's current
+playlist. The API also allows the client to manage their own playlists.
+
+| URL                   | Methods       | MPD Method        | Notes
+-----------------------------------------------------------------
+/playlist               | GET, PUT                          | Client can retrive the current playlist, a playlist by id, and/or create a new playlist
+/playlist/add           | POST
+/playlist/clear         | POST
+/playlist/remove        | POST
+
+
+## Stats API
+The Stats API allows the client to query the connected mpd daemon for any
+information pertaining to that daemon. 
+
+| URL                   | Methods       | MPD Method      |
+--------------------------------------------------------
+/stats/currentsong      | GET           | mpd.current\_song()
+/stats/version          | GET           | mpd.version 
+/stats/stats            | GET           | mpd.stats()
+/stats/status           | GET           | mpd.status()
+
+## Music API
+The music api allows the client to query for artists, albums, and songs.
+
+| URL                   | Methods       | MPD Method      |
+--------------------------------------------------------
+/music/albums/            GET           | mpd.list('album')
+/music/artists/           GET           | mpd.list('artist')
+/music/songs/             GET           | mpd.list('title')
+

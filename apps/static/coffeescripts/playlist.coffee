@@ -1,20 +1,15 @@
-$ -> 
-	
-	# Track Model
-    PlaylistTrack = Backbone.Model.extend(
+
+define (require, exports, module) ->
+    Backbone = require 'backbone'
+
+    
+    class PlaylistTrack extends Backbone.Model
         defaults:
             played: false
             selected: false
 
-        initialize: ->
-            if !@get("selected")
-                @set({ "selected":@defaults.content})
-            if !@get("played")
-                @set({  "played":@defaults.played})
 
-    )       
-
-    Playlist = Backbone.Collection.extend(
+    class Playlist extends Backbone.Collection
         model: PlaylistTrack
         url: '/api/0.1/playlist/'
 
@@ -29,16 +24,40 @@ $ ->
 
         comparator: (track) ->
             return parseInt(track.get('pos'))
-            )
 
-    PlaylistView = Backbone.View.extend(
-        tagName: "tr"
-        className: "playlistRow"
+        
+        class PlaylistTrackView extends Backbone.View
+            tagName: 'tr'
 
-        events: 
-            "click":    "select"
-            "dblclick": "play"
+            initialize: ->
+                _.bindAll @
 
-        render: () ->
-            $(this.el).html(this)   
-        )
+            render: ->
+                $(@el).html "<tr>#{@model.get pos}</tr>
+                <tr>#{@model.get 'title'}</tr>
+                <tr>#{@model.get 'artist'}</tr>"
+                    
+                @
+
+        class PlaylistView extends Backbone.View
+            tagName: "tbody"
+            class: "playlistTable"
+            el: "playlist"
+
+            initialize: ->
+                _.bindAll @
+
+                @collection = new Playlist
+                @collection.bind 'add', @appendItem
+
+                @counter = 0
+                @render()
+
+            render:  ->
+                $(@el).html(this)   
+
+                @
+
+            appendTrack: (track) ->
+                playlist_track_view = new PlaylistTrackView model: track
+                $(@el+'tbody').append playlist_track_view.render().el
