@@ -1,16 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="row-fluid">
-    <div class="span12 well" id="header">
-        {% include "mixins/controller.html" %}
-    </div>
+<div class="row-fluid" id="player_header_row">
+	<div class="span3 well" id="player_coverart_view">
+
+	</div>
+	<div class="span9 well" id="player_controller_view">
+		{% include "mixins/controller.html" %}
+	</div>
 </div>
-<div class="row-fluid">
-    <div class="span3 well">
-        {% include "mixins/playlist.html" %}
+<div class="row-fluid" id="player_main_row">
+    <div class="span3 well" id="player_sidebar_view">
+    
     </div>
-    <div class="span9 well">
-        {% include "mixins/library.html" %}
+
+    <div class="span9 well" id="player_data_view">
     </div>
 {% endblock %}

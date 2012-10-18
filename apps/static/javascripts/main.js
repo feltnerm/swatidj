@@ -1,34 +1,58 @@
 require.config({
 
+	deps: ["main"],
+
 	'paths': {
-		jQuery: 'contrib/jquery/jquery-min',
-		Underscore: 'contrib/underscore/underscore-min',
-		Backbone: 'contrib/backbone/backbone-min'
+		// Javascript Directories
+		contrib : './contrib/',
+
+		// Libraries
+		jquery: 'contrib/jquery-min',
+		underscore: 'contrib/underscore-min',
+		backbone: 'contrib/backbone-min',
+
+		//views: './views/',
+		//models: './models/',
+		//collections: './collections/'
+		r2dj: 'app/r2dj'
+	
 	},
 
 	shim: {
-		'Backbone': {
-			deps: ['Underscore', 'jQuery'],
-			exports: 'Backbone'
+		'backbone': {
+			deps: ['underscore', 'jquery'],
+			exports: 'Backbone',
+			init: function(_, $) {
+				return this.Backbone.noConflict();
+			}
 		},
-		'Underscore': {
-			exports: '_'
+		'underscore': {
+			exports: '_',
+			init: function () {
+				return this._.noConflict();
+			}
 		},
-		'jQuery': {
-			exports: '$'
+		'jquery': {
+			exports: '$',
+			init: function () {
+				return this.$.noConflict();
+			}
 		}
 	}
 
 });
 
-require([
+require(['jquery', 'underscore', 'backbone', 'r2dj'],
+	function($, _, Backbone, App) {
+		App.init();
 
-	'app',
+	//	Backbone.history.start({
+	//		pushState: true,
+	//		root: app.root
+	//	});
 
-	'jQuery',
-	'Underscore',
-	'Backbone'
+	//$(document).ready( function() {
+	//		console.log("Shit's ready, yo.");
+	//});
 
-], function(App){
-	App.initialize();
 });

@@ -13,58 +13,30 @@
 
 	<meta name="viewport" content="width=device-width">
 
-    {% block stylesheets %}
-    <link rel='stylesheet' href='/static/stylesheets/style.css'>
-    {% endblock stylesheets %}
+    <link rel='stylesheet' href='/static/stylesheets/style.css'></link>
+
 	<script src="/static/javascripts/contrib/modernizr-min.js"></script>
     
 </head>
-<body style="padding-top: 60px;">
+<body>
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="#">R2DJ</a>
+    <div id="header"><h1>R2DJ</h1></div>
 
-                <ul class="nav">
-                    <li><a href="/upload">Uploader</a></li>
-                </ul>
+    <div id="main" class="container-fluid"></div>
 
-                <form class="navbar-search pull-right">
-                    <input type="text" class="search-query" placeholder="Search...">
-                </form>
-            </div>
-        </div>
-    </div>
+    <footer id="footer" class="footer"><p>Copyright (c), Mark Feltner</p></footer>
 
-    <div class="container-fluid">
-    {% block content %}
-
-    {% endblock content %}
-    </div>
-
-    <footer class="footer">
-        {% include "mixins/footer.html" %}
-    </footer>
-
-{% block javascripts %}
 <script data-main="/static/javascripts/main" src="/static/javascripts/contrib/require.js"></script>
 
-<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"><\/script>') || document.write('<script src="/static/javascripts/contrib/jquery/jquery-min.js"><\/script>')</script>
-
-    <script src="/static/contrib/bootstrap/javascripts/bootstrap.min.js"></script>
-
-    
-
-{% endblock javascripts %}
+<!--
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
 	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 	s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
-
+-->
 
 </body>
 </html>

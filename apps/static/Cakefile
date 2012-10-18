@@ -4,7 +4,7 @@ task 'compile', 'Compiles coffee in coffeescripts/ to javascripts/', ->
 	compile()
 
 compile = (callback) ->
-	exec 'coffee -o javascripts/ -c coffeescripts/', (err, stdout, stderr) ->
+	exec 'coffee -b -o javascripts/ -c coffeescripts/', (err, stdout, stderr) ->
 		throw err if err
 		console.log "Compiled coffee files"
 		callback?()
