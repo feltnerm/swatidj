@@ -14,6 +14,7 @@ require.config({
 		//views: './views/',
 		//models: './models/',
 		//collections: './collections/'
+		app: 'app/',
 		r2dj: 'app/r2dj'
 	
 	},
@@ -42,10 +43,10 @@ require.config({
 
 });
 
-require(['jquery', 'underscore', 'backbone', 'r2dj'],
-	function($, _, Backbone, App) {
-		App.init();
-
+require(['r2dj'],
+	function(App) {
+		console.log(App);
+		App.initialize();
 	//	Backbone.history.start({
 	//		pushState: true,
 	//		root: app.root

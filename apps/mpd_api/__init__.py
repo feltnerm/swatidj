@@ -1,5 +1,5 @@
 from hashlib import md5
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, abort
 from apps.extensions import db, mpd_kit
 
 from views import AlbumsAPI, ArtistsAPI, SongsAPI
@@ -14,9 +14,9 @@ register_api(api, ArtistsAPI, 'artists_api', pk="artist_name", pk_type="string")
 register_api(api, SongsAPI, 'songs_api', pk="song_name", pk_type="string")
 
 
-@api.route("/command/play", methods=['POST', ])
+@api.route("/command/play/", methods=['POST', ])
 def play():
-    result = dict(status="_NONE", command='PLAY')
+    result = {}
     try:
         mpd_kit.play()
         result['status'] = "_OK"
@@ -25,56 +25,51 @@ def play():
     return jsonify(result)
 
 
-@api.route("/command/pause", methods=['POST', ])
+@api.route("/command/pause/", methods=['POST', ])
 def pause():
-    result = dict(status="_NONE", command='PAUSE')
+    result = {}
     try:
         mpd_kit.pause()
-        result['status'] = "_OK"
     except Exception, e:
-        result['status'] = "_FAIL"
+        abort(500)
     return jsonify(result)
 
 
-@api.route("/stats/currentsong", methods=['GET', ])
+@api.route("/stats/currentsong/", methods=['GET', ])
 def currentsong():
-    result = dict(status="_NONE", command="currentsong")
+    result = dict()
     try:
-        result['data'] = mpd_kit.currentsong()
-        result['status'] = "_OK"
+        result = mpd_kit.currentsong()
     except Exception, e:
-        result['status'] = "_FAIL"
+        abort(500)
     return jsonify(result)
 
 
-@api.route("/stats/stats", methods=['GET', ])
+@api.route("/stats/stats/", methods=['GET', ])
 def stats():
-    result = dict(status="_NONE", command="stats")
+    result = {}
     try:
-        result['data'] = mpd_kit.stats()
-        result['status'] = "_OK"
+        result = mpd_kit.stats()
     except Exception, e:
-        result['status'] = "_FAIL"
+        abort(500)
     return jsonify(result)
 
 
-@api.route("/stats/status", methods=['GET', ])
+@api.route("/stats/status/", methods=['GET', ])
 def status():
-    result = dict(status="_NONE", command="status")
+    result = {}
     try:
-        result['data'] = mpd_kit.status()
-        result['status'] = "_OK"
+        result = mpd_kit.status()
     except Exception, e:
-        result['status'] = "_FAIL"
+        abort(500)
     return jsonify(result)
 
 
-@api.route("/stats/version", methods=['GET', ])
+@api.route("/stats/version/", methods=['GET', ])
 def version():
-    result = dict(status="_NONE", command="version")
+    result = {}
     try:
-        result['data'] = mpd_kit.version
-        result['status'] = "_OK"
+        result = mpd_kit.version
     except Exception, e:
-        result['status'] = "_FAIL"
+        abort(500)
     return jsonify(result)
