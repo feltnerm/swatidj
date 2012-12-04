@@ -5,11 +5,15 @@ import random
 import readline
 from pprint import pprint
 from flask import *
-from app import make_app
-from app import helpers
-from app.extensions import *
+print("Flask imported")
+from apps.configure import init_app
+from apps import helpers
+print("Helpers imported")
+from apps.extensions import *
+print("Extensions imported")
 
-app = make_app('settings.dev.py')
+app = init_app('settings_dev.py')
+print("app initialized")
 os.environ['PYTHONINSPECT'] = 'True'
 
 def show(obj):
