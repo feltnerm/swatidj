@@ -1,43 +1,26 @@
 from hashlib import md5
 from flask import Blueprint, jsonify, abort
-from apps.extensions import db, mpd_kit
-
-from views import AlbumsAPI, ArtistsAPI, SongsAPI
+from apps.extensions import mpd_kit
 
 from apps.helpers import register_api
 
 
-api = Blueprint('mpd_api', __name__, url_prefix='/api/0.1')
-
-register_api(api, AlbumsAPI, 'albums_api', pk="album_name", pk_type="string")
-register_api(api, ArtistsAPI, 'artists_api', pk="artist_name", pk_type="string")
-register_api(api, SongsAPI, 'songs_api', pk="song_name", pk_type="string")
+api = Blueprint('mpd_api', __name__, url_prefix='/api')
 
 
-@api.route("/command/play/", methods=['POST', ])
-def play():
+@api.route("/playlist", methods=['GET',])
+def playlist():
     result = {}
     try:
-        mpd_kit.play()
-        result['status'] = "_OK"
-    except Exception, e:
-        result['status'] = "_FAIL"
-    return jsonify(result)
-
-
-@api.route("/command/pause/", methods=['POST', ])
-def pause():
-    result = {}
-    try:
-        mpd_kit.pause()
+        result = [x for x in enumerate(mpd_kit.playlistinfo())]
+        return jsonify(result)
     except Exception, e:
         abort(500)
-    return jsonify(result)
 
 
-@api.route("/stats/currentsong/", methods=['GET', ])
+@api.route("/currentsong", methods=['GET', ])
 def currentsong():
-    result = dict()
+    result = {}
     try:
         result = mpd_kit.currentsong()
     except Exception, e:
@@ -45,7 +28,29 @@ def currentsong():
     return jsonify(result)
 
 
-@api.route("/stats/stats/", methods=['GET', ])
+@api.route("/nextsong", methods=['GET',])
+def nextsong():
+    result = {}
+    try:
+        current_pos = int(mpd_kit.currentsong().get('pos'))
+        playlist = [x for x in enumerate(mpd_kit.playlistinfo())]
+        result = playlist[current_pos + 1][1]
+        return jsonify(result)
+    except Exception, e:
+        abort(500)
+
+@api.route("/prevsong", methods=['GET',])
+def prevsong():
+    result = {}
+    try:
+        current_pos = int(mpd_kit.currentsong().get('pos'))
+        playlist = [x for x in enumerate(mpd_kit.playlistinfo())]
+        result = playlist[current_pos - 1][1]
+        return jsonify(result)
+    except Exception, e:
+        abort(500)
+
+@api.route("/stats", methods=['GET', ])
 def stats():
     result = {}
     try:
@@ -55,7 +60,7 @@ def stats():
     return jsonify(result)
 
 
-@api.route("/stats/status/", methods=['GET', ])
+@api.route("/status", methods=['GET', ])
 def status():
     result = {}
     try:
@@ -65,7 +70,7 @@ def status():
     return jsonify(result)
 
 
-@api.route("/stats/version/", methods=['GET', ])
+@api.route("/version", methods=['GET', ])
 def version():
     result = {}
     try:

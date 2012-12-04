@@ -1,6 +1,6 @@
 from datetime import datetime
 from hashlib import md5
-from apps.extensions import db, mpd_kit
+from apps.extensions import mpd_kit
 
 
 def dict_from_list(in_list, key):
@@ -22,50 +22,3 @@ def enumerate_list(in_list):
     for i, e in enumerate(in_list):
         result[i] = e
     return result
-
-
-def mpd_search(key, value):
-    """ Fuzzy search. """
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
-    try:
-        data['status'] = '_OK'
-        data['result'] = dict_from_list(mpd_kit.search(key, value), key)
-    except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
-    return data
-
-
-def mpd_find(key, value):
-    """ Exact search. """
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
-    try:
-        data['status'] = '_OK'
-        data['result'] = dict_from_list(mpd_kit.find(key, value), key)
-    except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
-    return data
-
-
-def mpd_list(key):
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
-    try:
-        data['status'] = '_OK'
-        data['result'] = enumerate_list(mpd_kit.list(key))
-    except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
-    return data
