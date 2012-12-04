@@ -1,13 +1,8 @@
-from settings.defaults import *
 
 # MPD
 ###
 MPD_HOST = '{{ MPD_HOST }}'
 MPD_PORT = {{ MPD_PORT }}
-
-# Uploads
-###
-UPLOADS_FOLDER = '{{ UPLOADS_FOLDER }}'
 
 # Global Settings
 ###
@@ -18,14 +13,6 @@ DEBUG = not PRODUCTION
 TESTING = DEBUG
 ASSETS_DEBUG = DEBUG
 SECRET_KEY = """{{ SECRET_KEY }}"""
-
-# MongoDB
-###
-MONGODB_DATABASE = '{{ MONGODB_DATABASE }}'
-MONGODB_HOST = '{{ MONGODB_HOST }}'
-MONGODB_PORT = {{ MONGODB_PORT }}
-MONGODB_USERNAME = '{{ MONGODB_USERNAME }}'
-MONGODB_PASSWORD = '{{ MONGODB_PASSWORD }}'
 
 # Cache
 ###

@@ -7,7 +7,7 @@ import sys
 
 # Server Settings
 ###
-SITE_NAME = 'r2dj'
+SITE_NAME = 'swatiDJ'
 
 # Directory Declarations
 ###
@@ -23,11 +23,6 @@ STATIC_ROOT = os.path.join(API_ROOT, 'static')
 ###
 if '/lib' not in ''.join(sys.path):
     sys.path.append(LIB_ROOT)
-
-# Babel
-###
-BABEL_DEFAULT_LOCALE = 'en'
-BABEL_DEFAULT_TIMEZONE = 'utc'
 
 # Logging
 ###
