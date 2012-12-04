@@ -26,46 +26,37 @@ def enumerate_list(in_list):
 
 def mpd_search(key, value):
     """ Fuzzy search. """
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
+    data = dict()
     try:
-        data['status'] = '_OK'
-        data['result'] = dict_from_list(mpd_kit.search(key, value), key)
+        data = dict_from_list(mpd_kit.search(key, value), key)
     except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
+        data = None
     return data
 
 
 def mpd_find(key, value):
     """ Exact search. """
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
+    data = dict()
     try:
-        data['status'] = '_OK'
-        data['result'] = dict_from_list(mpd_kit.find(key, value), key)
+        data = dict_from_list(mpd_kit.find(key, value), key)
     except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
+        data = None
     return data
 
 
 def mpd_list(key):
-    data = {
-        'status': '_NA',
-        'result': None,
-        'error': None
-    }
+    data = dict()
     try:
-        data['status'] = '_OK'
-        data['result'] = enumerate_list(mpd_kit.list(key))
+        data = enumerate_list(mpd_kit.list(key))
     except Exception, e:
-        data['status'] = '_ERR'
-        data['error'] = "%s" % e
+        data = None
     return data
+
+def mpd_playlist_info():
+    data = dict()
+    try:
+        data = dict_from_list(mpd_kit.playlistinfo(), 'pos')
+    except Exception, e:
+        data = None
+    return data
+

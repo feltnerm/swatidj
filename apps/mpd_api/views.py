@@ -2,7 +2,7 @@ from flask import jsonify, request, abort
 from flask.views import MethodView
 
 from apps.extensions import db, mpd_kit
-from models import mpd_search, mpd_list
+from models import mpd_search, mpd_playlist_info, mpd_list
 
 """
     Should represent RESTful-esque ways to talk with MPD (specifically the mpd_kit)
@@ -43,4 +43,18 @@ class SongsAPI(MethodView):
             data = mpd_search('title', song_name)
         else:
             data = mpd_list('title')
+        return jsonify(data)
+
+class PlaylistAPI(MethodView):
+
+    url = "/playlists/"
+
+    def get(self, playlist_id=None):
+        if playlist_id is not None:
+            if playlist_id == 0:
+                data = mpd_playlist_info()
+            else:
+                data = {}
+        else:
+            data = {}
         return jsonify(data)

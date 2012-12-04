@@ -2,7 +2,7 @@ from hashlib import md5
 from flask import Blueprint, jsonify, abort
 from apps.extensions import db, mpd_kit
 
-from views import AlbumsAPI, ArtistsAPI, SongsAPI
+from views import AlbumsAPI, ArtistsAPI, SongsAPI, PlaylistAPI
 
 from apps.helpers import register_api
 
@@ -12,6 +12,7 @@ api = Blueprint('mpd_api', __name__, url_prefix='/api/0.1')
 register_api(api, AlbumsAPI, 'albums_api', pk="album_name", pk_type="string")
 register_api(api, ArtistsAPI, 'artists_api', pk="artist_name", pk_type="string")
 register_api(api, SongsAPI, 'songs_api', pk="song_name", pk_type="string")
+register_api(api, PlaylistAPI, 'playlist_api', pk="playlist_id", pk_type="int")
 
 
 @api.route("/command/play/", methods=['POST', ])
@@ -47,7 +48,7 @@ def currentsong():
 
 @api.route("/stats/stats/", methods=['GET', ])
 def stats():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.stats()
     except Exception, e:
@@ -57,7 +58,7 @@ def stats():
 
 @api.route("/stats/status/", methods=['GET', ])
 def status():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.status()
     except Exception, e:
@@ -67,7 +68,7 @@ def status():
 
 @api.route("/stats/version/", methods=['GET', ])
 def version():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.version
     except Exception, e:
