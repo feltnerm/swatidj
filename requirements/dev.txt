@@ -4,10 +4,8 @@
 -r prod.txt
 
 # Documentation
-Sphinx
 
 # Testing
-Flask-DebugToolbar
 Flask-Testing
 nose
 mock

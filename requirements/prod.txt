@@ -16,21 +16,6 @@ Logbook
 python-memcached
 Flask-Cache
 
-## Database
-Flask-MongoKit
-
-## Redis
-redis
-juggernaut
-
-## User Auth
-Flask-Principal
-Flask-Login
-
-## Extensions
-Flask-Bcrypt
-Flask-WTF
-
 ## MPD
 #git+git://github.com/Mic92/python-mpd2.git
 git+git://github.com/feltnerm/python-mpd2.git
