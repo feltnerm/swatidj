@@ -10,11 +10,6 @@ import urlparse
 from pprint import pprint
 
 try:
-    import cssmin
-except ImportError, e:
-    print 'cssmin not found!'
-
-try:
     from jinja2 import Environment, FileSystemLoader
 except ImportError, e:
     print 'jinja2 not found!'
@@ -63,15 +58,15 @@ def penv():
 
 # Default
 env.PROJECT_ROOT = os.path.dirname(__file__)
-env.PROJECT_VENV = 'r2dj'
+env.PROJECT_VENV = 'swatiDJ'
 env.user = "mark"
 env.roledefs = {
     'local': ['localhost'],
-    'web': ['saraswati']
+    'web': ['swati.dyndns.tv']
 }
 
 def server():
-    env.PROJECT_ROOT = '/var/www/saraswati'
+    env.PROJECT_ROOT = '/svr/www/swatiDJ'
     env.user = 'mark'
 
 @task
@@ -102,14 +97,6 @@ def create_settings():
             settings['PRODUCTION'] = True
 
     puts('')
-    pblue('##### DATABASE SETUP #####')
-    settings['MONGODB_HOST'] = prompt(magenta('MONGODB_HOST:'))
-    settings['MONGODB_PORT'] = prompt(magenta('MONGODB_PORT:'))
-    settings['MONGODB_DATABASE'] = prompt(magenta('MONGODB_DATABASE:'))
-    settings['MONGODB_USERNAME'] = prompt(magenta('MONGODB_USERNAME:'))
-    settings['MONGODB_PASSWORD'] = prompt(magenta('MONGODB_PASSWORD:'))
-
-    puts('')
     settings['MPD_HOST'] = prompt(magenta('MPD_HOST:'))
     settings['MPD_PORT'] = prompt(magenta('MPD_PORT:'))
 
@@ -130,9 +117,9 @@ def make_settings():
     if settings:
         jenv = Environment(loader=FileSystemLoader('.'))
         text = jenv.get_template('settings.template.py').render(**settings or {})
-        outputfile_name = 'settings.dev.py'
+        outputfile_name = 'settings_dev.py'
         if settings.get('PRODUCTION'):
-            outputfile_name = 'settings.prod.py'
+            outputfile_name = 'settings_prod.py'
         with open(outputfile_name, 'w') as outputfile:
             outputfile.write(text)
 
@@ -141,9 +128,9 @@ def upload_settings():
     """ Creates a new settings.{server-type}.py """
     settings = create_settings()
     if settings:
-        outputfile_name = 'settings.dev.py'
+        outputfile_name = 'settings_dev.py'
         if settings.get('PRODUCTION'):
-            outputfile_name = 'settings.prod.py'
+            outputfile_name = 'settings_prod.py'
         with cd(env.PROJECT_ROOT):
             with prefix('workon %s' % env.PROJECT_VENV): 
                 upload_template('settings.template.py', 
@@ -181,38 +168,6 @@ def console():
     local('ipython -i play.py')
 
 @task
-def less():
-    with lcd('app/static/less'):
-        local('lessc style.less ../css/style.css')
-
-@task
-def coffee():
-    with lcd('app/static/coffee'):
-        local('coffee -b --compile --output ../js/ *.coffee')
-
-@task
-def uglify():
-    with lcd('app/static/js'):
-        local('uglifyjs script.js >> script.min.js')
-        local('uglifyjs plugins.js >> plugins.min.js')
-
-@task
-def cssmin():
-    with lcd('app/static/css'):
-        local('cat *.css | cssmin > style.min.css')
-@task
-def watch_coffee():
-    with lcd('app/static/coffee'):
-        local('coffee -o ../js/ --watch --compile ./*coffee')
-
-@task
-def build_assets():
-    less()
-    coffee()
-    uglify()
-    cssmin()
-
-@task
 def test():
     local('nosetest tests')
 
@@ -240,7 +195,7 @@ def freeze():
 @task
 def clone():
     pass
-    run('git clone git@github.com:feltnerm/blog.git %s' % env.PROJECT_ROOT)
+    run('git clone git@github.com:feltnerm/swatiDJ.git %s' % env.PROJECT_ROOT)
 
 @task
 def commit():
@@ -331,7 +286,6 @@ def bootstrap():
 @task
 def deploy():
     clean()
-    build_assets()
     local('git push origin master')
     local('git push heroku master')
 
@@ -345,10 +299,6 @@ def deploy():
 @task
 def clean():
     rmpyc()
-    with lcd('app/static/'):
-        local('rm -rf js/*.js')
-        local('rm -rf css/*.css')
-        local('rm -rf gen/*')
 
 @task
 def pychecker():

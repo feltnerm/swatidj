@@ -1,7 +1,7 @@
 from hashlib import md5
 from flask import Blueprint, jsonify, abort
-from apps.extensions import mpd_kit
 
+from apps.extensions import mpd_kit
 from apps.helpers import register_api
 
 
@@ -52,7 +52,7 @@ def prevsong():
 
 @api.route("/stats", methods=['GET', ])
 def stats():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.stats()
     except Exception, e:
@@ -62,7 +62,7 @@ def stats():
 
 @api.route("/status", methods=['GET', ])
 def status():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.status()
     except Exception, e:
@@ -72,7 +72,7 @@ def status():
 
 @api.route("/version", methods=['GET', ])
 def version():
-    result = {}
+    result = dict()
     try:
         result = mpd_kit.version
     except Exception, e:

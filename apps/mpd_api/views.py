@@ -7,4 +7,3 @@ from apps.extensions import mpd_kit
     Should represent RESTful-esque ways to talk with MPD (specifically the mpd_kit)
 """
 
-
