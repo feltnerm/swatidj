@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 import os.path
-from flask import Flask, jsonify, g, render_template
+from flask import Flask, abort, jsonify, g, render_template
 
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
 
-from flask.ext.uploads import (
-    UploadSet, AUDIO, IMAGES, configure_uploads, patch_request_class
-    )
-import auth
+#import auth
 import extensions
 
-from uploader.views import uploader
 from mpd_api import api
 
 
@@ -19,21 +15,19 @@ def init_frontend(app):
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        abort(501)
 
 
 def init_apis(app):
 
     app.register_blueprint(api)
-    # Control API
-    app.register_blueprint(uploader)
 
 
 def init_beforehandlers(app):
-
-    @app.before_request
-    def authenticate():
-        g.user = getattr(g.identity, 'user', None)
+    pass
+    #@app.before_request
+    #def authenticate():
+    #    g.user = getattr(g.identity, 'user', None)
 
 
 def init_errorhandlers(app):
@@ -53,19 +47,10 @@ def init_errorhandlers(app):
 def init_extensions(app):
     """ Import and init required extensions. (located in extensions.py). """
 
-    extensions.bcrypt.init_app(app)
     extensions.cache.init_app(app)
-    extensions.db.init_app(app)
     extensions.mpd_kit.init_app(app)
 
-    auth.init_app(app)
-
-
-def init_uploads(app):
-    music_upload_set = UploadSet(name='music', extensions=AUDIO,
-            default_dest=lambda app: app.config['UPLOADS_MUSIC_DEST'])
-    configure_uploads(app, (music_upload_set,))
-    patch_request_class(app, 32 * 1024 * 1024 * 100)
+    #auth.init_app(app)
 
 
 def init_app(config):
@@ -73,7 +58,7 @@ def init_app(config):
 
     app = Flask(__name__)
 
-    app.config.from_pyfile(os.path.abspath('settings.defaults.py'))
+    app.config.from_pyfile(os.path.abspath('settings_default.py'))
     try:
         app.config.from_pyfile(os.path.abspath(config))
     except IOError, e:
@@ -84,5 +69,4 @@ def init_app(config):
     init_errorhandlers(app)
     init_apis(app)
     init_frontend(app)
-    init_uploads(app)
     return app
