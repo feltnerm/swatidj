@@ -236,10 +236,11 @@ def gunicorn_start():
 def deploy():
     deploy_code(full=True)
 
-def deploy_code(full=False);
+def deploy_code(full=False):
     with cd(env.PROJECT_ROOT):
         run('git pull')
-        with 
+        with settings(warn_only=True):
+            run('killall gunicorn')
 
 # ==========
 # Migrations
