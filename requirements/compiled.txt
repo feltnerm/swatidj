@@ -1,1 +1,3 @@
+## Everything in here is compiled. So it should be installed
+gunicorn
 fabric

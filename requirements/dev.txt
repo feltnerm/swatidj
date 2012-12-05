@@ -3,7 +3,7 @@
 # (testing, docs, etc.) it goes in this file.
 -r prod.txt
 
-# Documentation
+ipython
 
 # Testing
 Flask-Testing

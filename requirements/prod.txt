@@ -1,13 +1,8 @@
 ## Install compiled stuff first
 -r compiled.txt
 
-ipython
-gunicorn
-
 ## Flask Stuff
 Flask
-Werkzeug
-Jinja2
 
 ## Logging
 Logbook
@@ -20,5 +15,5 @@ Flask-Cache
 #git+git://github.com/Mic92/python-mpd2.git
 git+git://github.com/feltnerm/python-mpd2.git
 
-## Plugins
-#python-musicbrainz2
+# MEM and CPU stats for gunicorn.conf
+psutil
