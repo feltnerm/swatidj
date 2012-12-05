@@ -58,7 +58,7 @@ def penv():
 
 # Default
 env.PROJECT_ROOT = os.path.dirname(__file__)
-env.PROJECT_VENV = 'swatiDJ'
+env.PROJECT_VENV = 'swatidj'
 env.user = "mark"
 env.roledefs = {
     'local': ['localhost'],
@@ -66,23 +66,13 @@ env.roledefs = {
 }
 
 def server():
-    env.PROJECT_ROOT = '/svr/www/swatiDJ'
-    env.user = 'mark'
+    env.PROJECT_ROOT = '/srv/apps/swatidj'
+    env.user = 'swatidj'
 
 @task
 def web():
     server()
     env.roles = ['web']
-
-@task
-def app():
-    server()
-    env.roles = ['app']
-
-@task
-def dev():
-    server()
-    env.roles = ['dev']
 
 # ========
 # Settings
@@ -111,7 +101,7 @@ def create_settings():
 
 @task
 def make_settings():
-    """ Creates a new settings.{server-type}.py (locally) """
+    """ Creates a new settings_{server-type}.py """
     
     settings = create_settings()
     if settings:
@@ -125,7 +115,7 @@ def make_settings():
 
 @task
 def upload_settings():
-    """ Creates a new settings.{server-type}.py """
+    """ Creates a new settings_{server-type}.py """
     settings = create_settings()
     if settings:
         outputfile_name = 'settings_dev.py'
@@ -226,9 +216,30 @@ def status():
         puts(s)
 
 # =====================
-# Server Administration
+# Deployment
 # ====================
+def gunicorn_restart():
+    with cd(env.PROJECT_ROOT):
+        with settings(warn_only=True):
+            run('sudo supervisorctl restart gunicorn')
 
+def gunicorn_stop():
+    with cd(env.PROJECT_ROOT):
+        with settings(warn_only=True):
+            run('sudo supervisorctl stop swatidj')
+
+def gunicorn_start():
+    with cd(env.PROJECT_ROOT):
+        with settings(warn_only=True):
+            run('sudo supervisorctl start swatidj')
+
+def deploy():
+    deploy_code(full=True)
+
+def deploy_code(full=False);
+    with cd(env.PROJECT_ROOT):
+        run('git pull')
+        with 
 
 # ==========
 # Migrations
@@ -286,8 +297,10 @@ def bootstrap():
 @task
 def deploy():
     clean()
+    status()
     local('git push origin master')
-    local('git push heroku master')
+    with cd(env.PROJECT_ROOT):
+        run('git pull origin master')
 
 # ===============
 # Setup :: Common
