@@ -7,22 +7,25 @@ import sys
 
 # Server Settings
 ###
-SITE_NAME = 'swatiDJ'
+SITE_NAME = 'swatidj'
 
 # Directory Declarations
 ###
 CURRENT_DIR = os.path.dirname(__file__)
-API_ROOT = os.path.join(CURRENT_DIR, 'api')
+APIS_ROOT = os.path.join(CURRENT_DIR, 'apis')
+APPS_ROOT = os.path.join(CURRENT_DIR, 'apps')
 LIB_ROOT = os.path.join(CURRENT_DIR, 'lib')
-# needed?
-TEMPLATE_DIRS = (os.path.join(API_ROOT, 'templates'), )
-STATIC_ROOT = os.path.join(API_ROOT, 'static')
+EXTENSIONS_ROOT = os.path.join(CURRENT_DIR, 'extensions')
 
+TEMPLATE_DIRS = (os.path.join(APPS_ROOT, 'templates'), )
+STATIC_ROOT = os.path.join(APPS_ROOT, 'static')
 
 # Pythonpath
 ###
 if '/lib' not in ''.join(sys.path):
     sys.path.append(LIB_ROOT)
+if '/extensions' not in ''.join(sys.path):
+    sys.path.append(EXTENSIONS_ROOT)
 
 # Logging
 ###

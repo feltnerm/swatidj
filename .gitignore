@@ -42,3 +42,6 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+settings_dev.py
+settings_prod.py
