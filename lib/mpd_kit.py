@@ -41,6 +41,11 @@ class MPD(MPDClient):
             print 'Something is seriously broken.'
             super(MPD, self).__init__(use_unicode=self.use_unicode)
 
+    @staticmethod
+    def __getattr__(self, name):
+        if hasattr(MPDClient, name):
+            return getattr(MPDClient, name)
+
 
 class MPDKit(object):
 
