@@ -67,7 +67,7 @@ env.roledefs = {
 
 def server():
     env.PROJECT_ROOT = '/srv/apps/swatidj'
-    env.user = 'swatidj'
+    env.user = 'mark'
 
 @task
 def web():
@@ -218,29 +218,33 @@ def status():
 # =====================
 # Deployment
 # ====================
-def gunicorn_restart():
+@task
+def app_restart():
     with cd(env.PROJECT_ROOT):
         with settings(warn_only=True):
             run('sudo supervisorctl restart gunicorn')
-
-def gunicorn_stop():
+@task
+def app_stop():
     with cd(env.PROJECT_ROOT):
         with settings(warn_only=True):
             run('sudo supervisorctl stop swatidj')
 
-def gunicorn_start():
+@task
+def app_start():
     with cd(env.PROJECT_ROOT):
         with settings(warn_only=True):
             run('sudo supervisorctl start swatidj')
 
+@task
 def deploy():
     deploy_code(full=True)
 
+@task
 def deploy_code(full=False):
     with cd(env.PROJECT_ROOT):
         run('git pull')
         with settings(warn_only=True):
-            run('killall gunicorn')
+            app_restart()
 
 # ==========
 # Migrations
@@ -295,14 +299,6 @@ def bootstrap():
     #with cd(env.PROJECT_ROOT):
         #run('mkdir log/')
     
-@task
-def deploy():
-    clean()
-    status()
-    local('git push origin master')
-    with cd(env.PROJECT_ROOT):
-        run('git pull origin master')
-
 # ===============
 # Setup :: Common
 # ===============
